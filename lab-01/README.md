@@ -144,6 +144,7 @@ Operating System: Docker Desktop
 OSType: linux
 Docker Root Dir: /var/lib/docker
 ```
+<img width="985" height="482" alt="image" src="https://github.com/user-attachments/assets/054c2973-c278-4e60-9d60-ef0c92a5d7f8" />
 
 `docker --version` перевіряє наявність і версію клієнта Docker CLI. Команда `docker compose version` підтвердила сучасний інтегрований Compose plugin `v5.1.0`. Він запускається правильною командою `docker compose` з пробілом, а не застарілою окремою командою `docker-compose`. `docker info` успішно отримав серверну інформацію, отже Docker Engine запущений. Для доступу до працюючого Engine активний контекст Docker змінено із застарілого `desktop-linux` на `default`.
 
