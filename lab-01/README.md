@@ -127,6 +127,7 @@ uv 0.12.8 (68209e5c6 2026-08-31 x86_64-pc-windows-msvc)
 uv run --python 3.14.7 python --version
 # Python 3.14.7
 ```
+<img width="1041" height="166" alt="image" src="https://github.com/user-attachments/assets/4f0f38d5-9142-4aaa-a677-0a359be75767" />
 
 Команда `uv python list` підтвердила наявність керованого `cpython-3.14.7-windows-x86_64-none`. Системний Python `3.13.5` не видалявся і не замінювався. Звичайна команда `python` у початковій і фінальній перевірках вказувала на WindowsApps alias і не запускалася, тому доказом керованої версії є саме команда `uv run`.
 
