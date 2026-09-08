@@ -77,6 +77,7 @@ fnm 1.39.0
 * v24.20.0 default
 * system
 ```
+<img width="1061" height="517" alt="image" src="https://github.com/user-attachments/assets/4d9786b4-2802-42fd-b9e6-8ab8a38ca6e1" />
 
 У корені репозиторію створено `.node-version` зі значенням `24.20.0`. Разом із `fnm --use-on-cd` цей файл автоматично вибирає потрібну версію Node.js під час переходу до каталогу проєкту.
 
