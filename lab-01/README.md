@@ -141,8 +141,6 @@ Docker Compose version v5.1.0
 Client Version: 29.2.1
 Server Version: 29.2.1
 Operating System: Docker Desktop
-OSType: linux
-Docker Root Dir: /var/lib/docker
 ```
 <img width="985" height="482" alt="image" src="https://github.com/user-attachments/assets/054c2973-c278-4e60-9d60-ef0c92a5d7f8" />
 
