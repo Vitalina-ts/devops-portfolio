@@ -257,6 +257,8 @@ GitHub успішно розпізнав обліковий запис і пов
 Hi Vitalina-ts! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
+<img width="798" height="207" alt="image" src="https://github.com/user-attachments/assets/7a94f204-9e18-48f4-8464-6f971a1eb55a" />
+
 Це повідомлення підтверджує успішну SSH-автентифікацію. Відсутність shell-доступу є нормальною поведінкою GitHub. Автоматичний неінтерактивний тест без доступу до парольної фрази не зміг розблокувати ключ, тому доказом є ручна інтерактивна перевірка користувачки.
 
 ### Дії у разі витоку приватного ключа
