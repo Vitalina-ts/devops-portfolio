@@ -6,44 +6,32 @@ dest_dir=""
 keep=5
 dry_run=false
 
-# показуємо підказку
-show_help() {
-    echo "Usage:"
-    echo "./backup.sh --source <path> --dest <path> [--keep <N>] [--dry-run]"
-    echo
-    echo "--source <path>  тека, яку архівуємо"
-    echo "--dest <path>    куди зберігати архіви"
-    echo "--keep <N>       скільки копій залишити, типово 5"
-    echo "--dry-run        тільки показати дії"
-    echo "--help           показати довідку"
-    echo
-    echo 'Example:'
-    echo './backup.sh --source "./my project" --dest "./backups" --keep 3'
+help() {
+    echo "Usage: ./backup.sh --source <path> --dest <path> [--keep N] [--dry-run]"
 }
 
-# помилка + код виходу
 fail() {
     echo "ERROR: $2" >&2
     exit "$1"
 }
 
-# читаємо параметри
+# читаємо аргументи
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --source)
-            [[ $# -ge 2 ]] || fail 1 "Не вказано шлях після --source"
+            [[ $# -ge 2 ]] || fail 1 "Немає значення для --source"
             source_dir="$2"
             shift 2
             ;;
 
         --dest)
-            [[ $# -ge 2 ]] || fail 1 "Не вказано шлях після --dest"
+            [[ $# -ge 2 ]] || fail 1 "Немає значення для --dest"
             dest_dir="$2"
             shift 2
             ;;
 
         --keep)
-            [[ $# -ge 2 ]] || fail 1 "Не вказано число після --keep"
+            [[ $# -ge 2 ]] || fail 1 "Немає значення для --keep"
             keep="$2"
             shift 2
             ;;
@@ -54,7 +42,7 @@ while [[ $# -gt 0 ]]; do
             ;;
 
         --help)
-            show_help
+            help
             exit 0
             ;;
 
@@ -64,21 +52,19 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-# перевіряємо обов'язкові параметри
+# перевірки
 [[ -n "$source_dir" ]] || fail 1 "Потрібно вказати --source"
 [[ -n "$dest_dir" ]] || fail 1 "Потрібно вказати --dest"
 
-# перевіряємо source
-[[ -d "$source_dir" ]] || fail 2 "Тека source не існує"
-[[ -r "$source_dir" ]] || fail 3 "Тека source недоступна для читання"
+[[ -d "$source_dir" ]] || fail 2 "Source не існує"
+[[ -r "$source_dir" ]] || fail 3 "Source не читається"
 
-# keep має бути додатним числом
 [[ "$keep" =~ ^[1-9][0-9]*$ ]] || fail 1 "--keep має бути додатним числом"
 
-# створюємо destination, якщо його ще немає
+# створюємо destination
 if [[ ! -d "$dest_dir" ]]; then
     if "$dry_run"; then
-        echo "[DRY-RUN] Було б створено теку: $dest_dir"
+        echo "[DRY-RUN] mkdir -p \"$dest_dir\""
     else
         mkdir -p "$dest_dir" || fail 4 "Не вдалося створити destination"
     fi
@@ -90,26 +76,26 @@ source_parent="$(dirname "$source_dir")"
 timestamp="$(date +%Y-%m-%d-%H%M%S)"
 archive="$dest_dir/$source_name-$timestamp.tar.gz"
 
-# якщо запусків кілька за одну секунду, чекаємо нове ім'я
+# щоб не перезаписати архів з тим самим ім'ям
 while [[ -e "$archive" ]]; do
     sleep 1
     timestamp="$(date +%Y-%m-%d-%H%M%S)"
     archive="$dest_dir/$source_name-$timestamp.tar.gz"
 done
 
-# рахуємо файли, які підуть в архів
 files_count="$(find "$source_dir" -type f | wc -l)"
 
+# створення архіву
 if "$dry_run"; then
-    echo "[DRY-RUN] Було б створено архів: $archive"
+    echo "[DRY-RUN] tar -czf \"$archive\" -C \"$source_parent\" \"$source_name\""
 else
     tar -czf "$archive" -C "$source_parent" "$source_name" \
         || fail 5 "Не вдалося створити архів"
 
-    echo "Створено архів: $archive"
+    echo "Створено: $archive"
 fi
 
-# шукаємо тільки архіви цього source
+# список архівів цього source
 mapfile -t archives < <(
     find "$dest_dir" \
         -maxdepth 1 \
@@ -118,24 +104,26 @@ mapfile -t archives < <(
         -print | sort
 )
 
-# у dry-run враховуємо архів, який був би створений
+# для dry-run додаємо майбутній архів у список
 if "$dry_run"; then
     archives+=("$archive")
     mapfile -t archives < <(printf '%s\n' "${archives[@]}" | sort)
 fi
 
-count="${#archives[@]}"
 removed=0
+count="${#archives[@]}"
 
-# якщо архівів забагато - видаляємо найстаріші
+# видаляємо зайві старі архіви
 if (( count > keep )); then
     to_remove=$((count - keep))
 
     for ((i = 0; i < to_remove; i++)); do
         if "$dry_run"; then
-            echo "[DRY-RUN] Було б видалено: ${archives[$i]}"
+            echo "[DRY-RUN] rm \"${archives[$i]}\""
         else
-            rm "${archives[$i]}" || fail 6 "Не вдалося видалити старий архів"
+            rm "${archives[$i]}" \
+                || fail 6 "Не вдалося видалити старий архів"
+
             echo "Видалено: ${archives[$i]}"
         fi
 
@@ -143,14 +131,14 @@ if (( count > keep )); then
     done
 fi
 
-# записуємо результат
+# лог
 if "$dry_run"; then
-    echo "[DRY-RUN] Було б записано в журнал:"
+    echo "[DRY-RUN] log:"
     echo "$(date -Iseconds) | source=$source_dir | files=$files_count | removed=$removed"
 else
     archive_size="$(stat -c %s "$archive")"
 
     echo "$(date -Iseconds) | source=$source_dir | result=SUCCESS | files=$files_count | removed=$removed | size=$archive_size" \
         >> "$dest_dir/backup.log" \
-        || fail 7 "Не вдалося записати журнал"
+        || fail 7 "Не вдалося записати лог"
 fi
