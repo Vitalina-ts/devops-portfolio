@@ -40,6 +40,7 @@ docker compose ps
 ```
 
 Перевірити API: http://localhost:8000/docs
+<img width="898" height="895" alt="image" src="https://github.com/user-attachments/assets/e3a5ec63-2497-4081-b5bf-eccd5c0f3460" />
 
 **3. Запуск Frontend (Vue 3)**
 
@@ -63,6 +64,7 @@ npm run dev
 ```
 
 Відкрити сайт: http://localhost:5173
+<img width="922" height="813" alt="image" src="https://github.com/user-attachments/assets/0660f834-66eb-449d-bc93-7247dcb1aafd" />
 
 **4. Перевірка**
 
