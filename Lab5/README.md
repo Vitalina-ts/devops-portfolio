@@ -10,6 +10,8 @@ docker compose up -d --build --wait
 
 Після виконання команди в Docker Desktop було запущено чотири контейнери: `ui`, `api`, `postgres`, `redis`.
 <img width="950" height="290" alt="image" src="https://github.com/user-attachments/assets/be4e9fe6-6a21-4ec1-973b-a92138c492c0" />
+<img width="1228" height="692" alt="image" src="https://github.com/user-attachments/assets/575c1f71-b956-49f5-9315-5d8db58cc3d5" />
+
 
 
 *Рисунок 1 — Запущені контейнери проєкту Wishlist у Docker Desktop.*
@@ -23,8 +25,7 @@ docker compose up -d --build --wait
 ```powershell
 docker compose ps
 ```
-
-<img width="642" height="303" alt="image" src="https://github.com/user-attachments/assets/5713b3f5-ec2f-4788-9c7b-d508f94d01ef" />
+<img width="1222" height="212" alt="image" src="https://github.com/user-attachments/assets/dfe2e1e2-57ac-4668-a765-64300efc4f94" />
 
 *Рисунок 2 — Перевірка стану сервісів Docker Compose.*
 
@@ -40,7 +41,8 @@ http://127.0.0.1:5173
 
 Після входу в систему було створено тестовий список бажань.
 
-<img width="652" height="107" alt="image" src="https://github.com/user-attachments/assets/7b1b1760-4c05-4ccb-828b-2b2d84dc0310" />
+<img width="827" height="578" alt="image" src="https://github.com/user-attachments/assets/0209d9e9-8c21-43b9-94a4-00df95010a78" />
+
 
 *Рисунок 3 — Робота вебінтерфейсу Wishlist.*
 
@@ -53,7 +55,7 @@ http://127.0.0.1:5173
 ```text
 http://127.0.0.1:5173/api/health
 ```
-<img width="647" height="392" alt="image" src="https://github.com/user-attachments/assets/6cf9ff00-52d8-4135-bc38-013ab68d06d9" />
+<img width="720" height="128" alt="image" src="https://github.com/user-attachments/assets/eac6329a-7212-4e41-83dd-f748b03c7a18" />
 
 
 *Рисунок 4 — Перевірка доступності FastAPI через Nginx.*
@@ -93,6 +95,7 @@ docker compose up -d --wait
 ```
 
 Після повторного запуску запис залишився доступним, а API повернув `HTTP 200`.
+<img width="876" height="147" alt="image" src="https://github.com/user-attachments/assets/0e080a8d-f0a2-4f8a-9ce1-460cecc1e3ab" />
 
 Потім у тестовому стеку виконано:
 
@@ -100,6 +103,7 @@ docker compose up -d --wait
 docker compose down -v
 docker compose up -d --wait
 ```
+<img width="1237" height="390" alt="image" src="https://github.com/user-attachments/assets/b2066fed-0b06-4151-a3bd-89d8d3923b57" />
 
 Після видалення тому тестовий запис став недоступним, а API повернув `HTTP 404`.
 
