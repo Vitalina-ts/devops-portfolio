@@ -9,7 +9,8 @@ docker compose up -d --build --wait
 ```
 
 Після виконання команди в Docker Desktop було запущено чотири контейнери: `ui`, `api`, `postgres`, `redis`.
-<img width="641" height="252" alt="image" src="https://github.com/user-attachments/assets/b9079d78-9443-4d4a-b349-7c4c9e796b6a" />
+<img width="950" height="290" alt="image" src="https://github.com/user-attachments/assets/be4e9fe6-6a21-4ec1-973b-a92138c492c0" />
+
 
 *Рисунок 1 — Запущені контейнери проєкту Wishlist у Docker Desktop.*
 
