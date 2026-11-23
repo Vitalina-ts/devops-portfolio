@@ -9,7 +9,7 @@ docker compose up -d --build --wait
 ```
 
 Після виконання команди в Docker Desktop було запущено чотири контейнери: `ui`, `api`, `postgres`, `redis`.
-
+<img width="641" height="252" alt="image" src="https://github.com/user-attachments/assets/b9079d78-9443-4d4a-b349-7c4c9e796b6a" />
 
 *Рисунок 1 — Запущені контейнери проєкту Wishlist у Docker Desktop.*
 
@@ -23,7 +23,7 @@ docker compose up -d --build --wait
 docker compose ps
 ```
 
-**[Вставити фото №2 — PowerShell із результатом docker compose ps]**
+<img width="642" height="303" alt="image" src="https://github.com/user-attachments/assets/5713b3f5-ec2f-4788-9c7b-d508f94d01ef" />
 
 *Рисунок 2 — Перевірка стану сервісів Docker Compose.*
 
@@ -39,7 +39,7 @@ http://127.0.0.1:5173
 
 Після входу в систему було створено тестовий список бажань.
 
-**[Вставити фото №3 — сторінка Your Wishlists зі створеним списком]**
+<img width="652" height="107" alt="image" src="https://github.com/user-attachments/assets/7b1b1760-4c05-4ccb-828b-2b2d84dc0310" />
 
 *Рисунок 3 — Робота вебінтерфейсу Wishlist.*
 
@@ -52,8 +52,8 @@ http://127.0.0.1:5173
 ```text
 http://127.0.0.1:5173/api/health
 ```
+<img width="647" height="392" alt="image" src="https://github.com/user-attachments/assets/6cf9ff00-52d8-4135-bc38-013ab68d06d9" />
 
-**[Вставити фото №4 — JSON-відповідь health у браузері]**
 
 *Рисунок 4 — Перевірка доступності FastAPI через Nginx.*
 
@@ -76,8 +76,7 @@ http://127.0.0.1:5173/api/health
 ```powershell
 docker compose logs -f api ui
 ```
-
-**[Вставити фото №5 — Docker Desktop із журналами API та UI]**
+<img width="721" height="120" alt="image" src="https://github.com/user-attachments/assets/b4051c91-8d9f-494b-bf5a-ad459f345959" />
 
 *Рисунок 5 — Журнали роботи контейнерів API та UI.*
 
@@ -103,13 +102,8 @@ docker compose up -d --wait
 
 Після видалення тому тестовий запис став недоступним, а API повернув `HTTP 404`.
 
-**[За потреби вставити додатковий скриншот із розділу «Результати перевірки» файлу docs/containers.md]**
 
-*Рисунок 6 — Результати перевірки збереження даних PostgreSQL.*
 
-Отже, команда `down` не видаляє дані з іменованого тому, а `down -v` видаляє том разом зі збереженими даними. Перевірку виконано в окремому тестовому стеку, без видалення робочої бази даних.
-
-## Висновок
 
 У ході лабораторної роботи було налаштовано спільний Docker Compose для вебзастосунку Wishlist. Успішно запущено чотири сервіси: PostgreSQL, Redis, FastAPI та Vue/Nginx.
 
